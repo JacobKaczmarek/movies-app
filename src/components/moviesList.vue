@@ -47,7 +47,6 @@ export default {
 
     handleModalOpen(movie) {
       this.$emit('openModal', movie);
-      console.log('emited');
     }
   }
 };
