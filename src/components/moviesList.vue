@@ -49,9 +49,17 @@ export default {
   input {
     margin: 30px 0 30px;
   }
+
   .list-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto;
+
+    @media screen and (min-width: 765px) {
+      grid-template-columns: auto auto;
+    }
+    @media screen and (min-width: 1024px) {
+      grid-template-columns: auto auto auto;
+    }
   }
 }
 </style>
