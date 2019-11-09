@@ -103,5 +103,25 @@ export default {
       transform: rotate(-45deg);
     }
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 100vw;
+    height: 100vh;
+    padding: 30px;
+    top: 0;
+
+    .innerWrapper {
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        display: none;
+      }
+
+      .rightSection {
+        margin-left: 0;
+      }
+    }
+  }
 }
 </style>
