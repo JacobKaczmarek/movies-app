@@ -18,9 +18,6 @@ export default {
     return {
       posterUrl: ''
     };
-  },
-  methods: {
-    getPoster() {}
   }
 };
 </script>
@@ -28,11 +25,12 @@ export default {
 <style lang="scss" scoped>
 .movieCardWrapper {
   color: white;
+  cursor: pointer;
   width: 250px;
   padding: 30px;
   margin: 30px auto;
-  background: #333333;
-  border-radius: 3px;
+  background: #2c3e50;
+  border-radius: 5px;
 
   img {
     margin: 15px;

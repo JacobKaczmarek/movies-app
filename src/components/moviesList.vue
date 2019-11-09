@@ -1,10 +1,16 @@
 <template>
-  <div class="moviesListWrapper">
-    <h2>Search for a movie</h2>
+  <div class="moviesListWrapper" v-bind:class="{resultsAvailable: stage}">
+    <h2 v-if="!stage">Search for a movie</h2>
     <b-form-input @input="handleInput()" placeholder="Movie title" v-model="title"></b-form-input>
-    <div class="list-container">
-      <movieCard v-for="movie in movies" :key="movie.id" :movie="movie"></movieCard>
+    <div class="listContainer">
+      <movieCard
+        v-for="movie in movies"
+        :key="movie.id"
+        :movie="movie"
+        @click.native="handleModalOpen(movie)"
+      ></movieCard>
     </div>
+    <h1 class="noResults" v-if="stage == 1 && movies.length == 0">No results.</h1>
   </div>
 </template>
 
@@ -23,7 +29,8 @@ export default {
   data() {
     return {
       movies: [],
-      title: ''
+      title: '',
+      stage: 0
     };
   },
   methods: {
@@ -33,19 +40,14 @@ export default {
         .get(`${apiUrl}/search/movie?api_key=${apiToken}&query=${this.title}`)
         .then(async data => {
           this.movies = data.data.results;
-          console.log(this.movies);
+          this.stage = 1;
         })
         .catch(err => console.error(err));
     }, 500),
-    searchMovie() {
-      // Get movies list
-      axios
-        .get(`${apiUrl}/search/movie?api_key=${apiToken}&query=${this.title}`)
-        .then(async data => {
-          this.movies = data.data.results;
-          console.log(this.movies);
-        })
-        .catch(err => console.error(err));
+
+    handleModalOpen(movie) {
+      this.$emit('openModal', movie);
+      console.log('emited');
     }
   }
 };
@@ -55,12 +57,14 @@ export default {
 .moviesListWrapper {
   width: 70%;
   margin: 23vh auto;
+  transition: transform 0.3s ease;
 
   input {
-    margin: 30px 0 30px;
+    margin: 30px auto 0;
+    width: 50%;
   }
 
-  .list-container {
+  .listContainer {
     display: grid;
     grid-template-columns: auto;
 
@@ -71,5 +75,13 @@ export default {
       grid-template-columns: auto auto auto;
     }
   }
+
+  .noResults {
+    margin-top: 20vh;
+  }
+}
+
+.resultsAvailable {
+  transform: translateY(-140px);
 }
 </style>
