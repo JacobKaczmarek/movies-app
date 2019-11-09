@@ -1,8 +1,7 @@
 <template>
   <div class="moviesListWrapper">
     <h2>Search for a movie</h2>
-    <b-form-input placeholder="Movie title" v-model="title"></b-form-input>
-    <b-button @click="searchMovie()">Search</b-button>
+    <b-form-input @input="handleInput()" placeholder="Movie title" v-model="title"></b-form-input>
     <div class="list-container">
       <movieCard v-for="movie in movies" :key="movie.id" :movie="movie"></movieCard>
     </div>
@@ -11,6 +10,7 @@
 
 <script>
 import axios from 'axios';
+import debounce from 'lodash.debounce';
 import { apiToken } from '../../credentials.json';
 import movieCard from './movieCard.vue';
 
@@ -27,6 +27,16 @@ export default {
     };
   },
   methods: {
+    // eslint-disable-next-line
+    handleInput: debounce(function() {
+      axios
+        .get(`${apiUrl}/search/movie?api_key=${apiToken}&query=${this.title}`)
+        .then(async data => {
+          this.movies = data.data.results;
+          console.log(this.movies);
+        })
+        .catch(err => console.error(err));
+    }, 500),
     searchMovie() {
       // Get movies list
       axios
