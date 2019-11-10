@@ -32,6 +32,10 @@ export default {
   background: #2c3e50;
   border-radius: 5px;
 
+  -webkit-box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.37);
+  box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.37);
+
   img {
     margin: 15px;
   }

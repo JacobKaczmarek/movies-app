@@ -64,6 +64,11 @@ export default {
   padding: 50px;
   background-color: #42b983;
   border-radius: 5px;
+
+  -webkit-box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.37);
+  box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.37);
+
   .innerWrapper {
     display: flex;
     justify-content: space-evenly;
